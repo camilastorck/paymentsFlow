@@ -8,11 +8,10 @@
 import Foundation
 
 extension String {
-    
     var format: Double {
         return (self as NSString).doubleValue
     }
-    
+
     var formatAsDouble: Double {
         let cleanTotal = components(separatedBy: .decimalDigits.inverted).joined()
         return (cleanTotal as NSString).doubleValue / 100

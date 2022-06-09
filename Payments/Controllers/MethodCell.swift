@@ -8,10 +8,10 @@
 import UIKit
 
 final class MethodCell: UICollectionViewCell {
-    
+
     @IBOutlet private weak var methodImageView: UIImageView!
     @IBOutlet private weak var methodLabel: UILabel!
-    
+
     static let name = "MethodCell"
     static let identifier = "methodCell"
 

@@ -70,13 +70,14 @@ extension PaymentMethodsViewController: UICollectionViewDataSource, UICollection
         return methods.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MethodCell.identifier,
-                                                      for: indexPath) as! MethodCell
-        cell.configureWith(image: dataManager.getPaymentMethodsImages(for: indexPath,
+                                                      for: indexPath) as? MethodCell
+        cell?.configureWith(image: dataManager.getPaymentMethodsImages(for: indexPath,
                                                                       methods: methods),
                                                                       text: methods[indexPath.row].name)
-        return cell
+        return cell ?? UICollectionViewCell()
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -89,7 +90,10 @@ extension PaymentMethodsViewController: UICollectionViewDataSource, UICollection
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                                              heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(2/8)), subitem: item, count: 2)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize:
+                                                        NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                                               heightDimension: .fractionalHeight(2/8)),
+                                                       subitem: item, count: 2)
         let section = NSCollectionLayoutSection(group: group)
         return UICollectionViewCompositionalLayout(section: section)
     }

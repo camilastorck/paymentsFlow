@@ -76,11 +76,15 @@ extension InstallmentsViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: InstallmentCell.identifier,
-                                                 for: indexPath) as! InstallmentCell
-        cell.feeLabel.text = "\(installments[indexPath.row].name) de $"
-        cell.feeAmountLabel.text = calculationsViewModel.calculateValueForIndividualFee(operation, installments, indexPath)
-        cell.totalAmountLabel.text = calculationsViewModel.calculateFinalValueForFee(operation, installments, indexPath)
-        return cell
+                                                 for: indexPath) as? InstallmentCell
+        cell?.feeLabel.text = "\(installments[indexPath.row].name) de $"
+        cell?.feeAmountLabel.text = calculationsViewModel.calculateValueForIndividualFee(operation,
+                                                                                        installments,
+                                                                                        indexPath)
+        cell?.totalAmountLabel.text = calculationsViewModel.calculateFinalValueForFee(operation,
+                                                                                      installments,
+                                                                                      indexPath)
+        return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -33,7 +33,18 @@
 		E655D5FC2850EF5C00C1A727 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E655D5FB2850EF5C00C1A727 /* Extension.swift */; };
 		E655D5FE285110CC00C1A727 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E655D5FD285110CC00C1A727 /* NumberFormatter.swift */; };
 		E655D60028525EC800C1A727 /* CalculationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E655D5FF28525EC800C1A727 /* CalculationsViewModel.swift */; };
+		E655D60C2852791000C1A727 /* PaymentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E655D60B2852791000C1A727 /* PaymentsTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E655D60D2852791000C1A727 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E655D5B1284E62FF00C1A727 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E655D5B8284E62FF00C1A727;
+			remoteInfo = Payments;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6F3B7608AE8A8282D16DC511 /* Pods-Payments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Payments.debug.xcconfig"; path = "Target Support Files/Pods-Payments/Pods-Payments.debug.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +77,8 @@
 		E655D5FB2850EF5C00C1A727 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E655D5FD285110CC00C1A727 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		E655D5FF28525EC800C1A727 /* CalculationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsViewModel.swift; sourceTree = "<group>"; };
+		E655D6092852791000C1A727 /* PaymentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaymentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E655D60B2852791000C1A727 /* PaymentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +87,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B35D4A7195E4A973AED9811 /* Pods_Payments.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E655D6062852791000C1A727 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				E655D5BB284E62FF00C1A727 /* Payments */,
+				E655D60A2852791000C1A727 /* PaymentsTests */,
 				E655D5BA284E62FF00C1A727 /* Products */,
 				B09FB5BE589AA3B435B1D324 /* Pods */,
 				1B94A176EE58F43A80947279 /* Frameworks */,
@@ -111,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				E655D5B9284E62FF00C1A727 /* Payments.app */,
+				E655D6092852791000C1A727 /* PaymentsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,6 +210,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E655D60A2852791000C1A727 /* PaymentsTests */ = {
+			isa = PBXGroup;
+			children = (
+				E655D60B2852791000C1A727 /* PaymentsTests.swift */,
+			);
+			path = PaymentsTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -196,6 +226,7 @@
 			buildConfigurationList = E655D5CD284E630300C1A727 /* Build configuration list for PBXNativeTarget "Payments" */;
 			buildPhases = (
 				D9045E573E98265E6C544CB1 /* [CP] Check Pods Manifest.lock */,
+				E655D6032852771900C1A727 /* Run SwiftLint */,
 				E655D5B5284E62FF00C1A727 /* Sources */,
 				E655D5B6284E62FF00C1A727 /* Frameworks */,
 				E655D5B7284E62FF00C1A727 /* Resources */,
@@ -209,6 +240,24 @@
 			productReference = E655D5B9284E62FF00C1A727 /* Payments.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E655D6082852791000C1A727 /* PaymentsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E655D60F2852791000C1A727 /* Build configuration list for PBXNativeTarget "PaymentsTests" */;
+			buildPhases = (
+				E655D6052852791000C1A727 /* Sources */,
+				E655D6062852791000C1A727 /* Frameworks */,
+				E655D6072852791000C1A727 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E655D60E2852791000C1A727 /* PBXTargetDependency */,
+			);
+			name = PaymentsTests;
+			productName = PaymentsTests;
+			productReference = E655D6092852791000C1A727 /* PaymentsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -221,6 +270,10 @@
 				TargetAttributes = {
 					E655D5B8284E62FF00C1A727 = {
 						CreatedOnToolsVersion = 13.4.1;
+					};
+					E655D6082852791000C1A727 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = E655D5B8284E62FF00C1A727;
 					};
 				};
 			};
@@ -238,6 +291,7 @@
 			projectRoot = "";
 			targets = (
 				E655D5B8284E62FF00C1A727 /* Payments */,
+				E655D6082852791000C1A727 /* PaymentsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,6 +311,13 @@
 				E655D5F0284F896500C1A727 /* MethodCell.xib in Resources */,
 				E655D5E0284F79DA00C1A727 /* installments.json in Resources */,
 				E655D5DD284EDFED00C1A727 /* ConfirmationViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E655D6072852791000C1A727 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +346,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E655D6032852771900C1A727 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -310,7 +389,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E655D6052852791000C1A727 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E655D60C2852791000C1A727 /* PaymentsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E655D60E2852791000C1A727 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E655D5B8284E62FF00C1A727 /* Payments */;
+			targetProxy = E655D60D2852791000C1A727 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E655D5C7284E630300C1A727 /* LaunchScreen.storyboard */ = {
@@ -492,6 +587,40 @@
 			};
 			name = Release;
 		};
+		E655D6102852791000C1A727 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.camilastorck.PaymentsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Payments.app/Payments";
+			};
+			name = Debug;
+		};
+		E655D6112852791000C1A727 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.camilastorck.PaymentsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Payments.app/Payments";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -509,6 +638,15 @@
 			buildConfigurations = (
 				E655D5CE284E630300C1A727 /* Debug */,
 				E655D5CF284E630300C1A727 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E655D60F2852791000C1A727 /* Build configuration list for PBXNativeTarget "PaymentsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E655D6102852791000C1A727 /* Debug */,
+				E655D6112852791000C1A727 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

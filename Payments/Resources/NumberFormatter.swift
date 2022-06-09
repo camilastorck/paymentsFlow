@@ -15,4 +15,3 @@ public let formatter: NumberFormatter = {
     formatter.maximumIntegerDigits = 6
     return formatter
 }()
-

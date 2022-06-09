@@ -74,6 +74,5 @@ final class MainViewController: UIViewController {
     @objc private func changeViewValues() {
         total = "0.00"
         descriptionLabel.text = ""
-
     }
 }

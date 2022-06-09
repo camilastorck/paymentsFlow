@@ -13,7 +13,7 @@ final class CalculationsViewModel {
 
     func calculateFinalAmount(with value: Int) -> String {
         var previousTotalAmount: Double = cleanTotal.format * 10.0
-        previousTotalAmount = previousTotalAmount + (Double(value))
+        previousTotalAmount += (Double(value))
         let formattedValue = formatter.string(from: NSNumber(value: (previousTotalAmount / 100.0)))
         return "$ \(formattedValue ?? "0.00")"
     }
@@ -56,4 +56,3 @@ final class CalculationsViewModel {
         return "0.00"
     }
 }
-
