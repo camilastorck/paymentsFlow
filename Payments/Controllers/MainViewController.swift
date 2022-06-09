@@ -32,7 +32,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         title = "Operación"
         total = "$ 0.00"
-        NotificationCenter.default.addObserver(self, selector: #selector(changeViewValues), name: .updateViewValues, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewValues), name: .updateOperationValues, object: nil)
     }
 
     // MARK: - IBActions

@@ -17,41 +17,39 @@ final class InstallmentsViewController: UIViewController {
             tableView.register(nib, forCellReuseIdentifier: InstallmentCell.identifier)
         }
     }
-    
+
     // MARK: - Variables
 
     private let dataManager: DataManager
     private var installments: [Installment] = []
     private var operation: Operation
-    
+
     init(dataManager: DataManager, operation: Operation) {
         self.dataManager = dataManager
         self.operation = operation
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Financiación"
         fetchDataForInstallmentsInfo()
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissControllers), name: .dismissControllers, object: nil)
     }
-    
+
     private func fetchDataForInstallmentsInfo() {
         installments = dataManager.getInstallmentMethods()
         tableView.reloadData()
     }
-    
+
     private func getValueForFee(indexPath: IndexPath) -> String {
-        
         let amountForOneFee = operation.amountToTransfer
         let amountFotThreeFees = (operation.amountToTransfer / 3) * 1.15
         let amountForSixFees = (operation.amountToTransfer / 6) * 1.3
-        
         if installments[indexPath.row].id == 0 {
             return formatter.string(from: NSNumber(value: amountForOneFee)) ?? ""
         } else if installments[indexPath.row].id == 1 {
@@ -59,16 +57,13 @@ final class InstallmentsViewController: UIViewController {
         } else if installments[indexPath.row].id == 2 {
             return formatter.string(from: NSNumber(value: amountForSixFees)) ?? ""
         }
-        
         return "0.00"
     }
     
     private func getFinalAmountWithInterestForFee(indexPath: IndexPath) -> String {
-        
         let amountForOneFee = operation.amountToTransfer
         let finalAmountWithInterestForThreeFees = amountForOneFee * 1.15
         let finalAmountWithInterestForSixFees = amountForOneFee * 1.3
-        
         if installments[indexPath.row].id == 0 {
             return "$ \(formatter.string(from: NSNumber(value: amountForOneFee)) ?? "")"
         } else if installments[indexPath.row].id == 1 {
@@ -76,19 +71,22 @@ final class InstallmentsViewController: UIViewController {
         } else if installments[indexPath.row].id == 2 {
             return "$ \(formatter.string(from: NSNumber(value: finalAmountWithInterestForSixFees)) ?? "")"
         }
-        
         return "0.00"
+    }
+
+    @objc private func dismissControllers() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
 // MARK: - Table View Implementation
 
 extension InstallmentsViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return installments.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: InstallmentCell.identifier, for: indexPath) as! InstallmentCell
         cell.feeLabel.text = "\(installments[indexPath.row].name) de $"
@@ -96,14 +94,14 @@ extension InstallmentsViewController: UITableViewDelegate, UITableViewDataSource
         cell.totalAmountLabel.text = getFinalAmountWithInterestForFee(indexPath: indexPath)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let installment: Installment = installments[indexPath.row]
         let finalAmount: Double = getFinalAmountWithInterestForFee(indexPath: indexPath).formatAsDouble
         navigateToConfirmationWithMethod(finalAmount: finalAmount, installment: installment)
     }
-    
+
     private func navigateToConfirmationWithMethod(finalAmount: Double, installment: Installment) {
         let operationBuilder = OperationBuilder()
         operationBuilder.amountToTransfer = finalAmount
@@ -112,6 +110,6 @@ extension InstallmentsViewController: UITableViewDelegate, UITableViewDataSource
         operationBuilder.installments = [installment]
         guard let operation = operationBuilder.buidOperation() else { return }
         let confirmationVC = ConfirmationViewController(operation: operation)
-        navigationController?.pushViewController(confirmationVC, animated: true)
+        present(confirmationVC, animated: true)
     }
 }

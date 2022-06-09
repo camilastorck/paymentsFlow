@@ -20,5 +20,6 @@ extension String {
 }
 
 extension Notification.Name {
-    static let updateViewValues = Notification.Name("updateViewValues")
+    static let updateOperationValues = Notification.Name("updateOperationValues")
+    static let dismissControllers = Notification.Name("dismissControllers")
 }

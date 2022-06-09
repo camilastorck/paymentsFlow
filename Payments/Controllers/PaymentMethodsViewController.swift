@@ -8,7 +8,7 @@
 import UIKit
 
 final class PaymentMethodsViewController: UIViewController {
-    
+
     // MARK: - IBOutlets
 
     @IBOutlet private weak var collectionView: UICollectionView! {
@@ -20,23 +20,23 @@ final class PaymentMethodsViewController: UIViewController {
             collectionView.collectionViewLayout = createLayout()
         }
     }
-    
+
     // MARK: - Variables
 
     private let dataManager: DataManager
     private var methods: [Method] = []
     private var operation: Operation
-    
+
     init(dataManager: DataManager, operation: Operation) {
         self.dataManager = dataManager
         self.operation = operation
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Métodos de pago"
@@ -47,14 +47,13 @@ final class PaymentMethodsViewController: UIViewController {
         methods = dataManager.getPaymentMethods()
         collectionView.reloadData()
     }
-    
+
     private func navigateToInstallmentWithMethod(_ method: Method) {
         let operationBuilder = OperationBuilder()
         operationBuilder.amountToTransfer = operation.amountToTransfer
         operationBuilder.operationDescription = operation.operationDescription
         operationBuilder.paymentMethods = [method]
         operationBuilder.installments = []
-        
         guard let operation = operationBuilder.buidOperation() else { return }
         let installmentsVC = InstallmentsViewController(dataManager: DataManager(), operation: operation)
         navigationController?.pushViewController(installmentsVC, animated: true)
@@ -64,7 +63,7 @@ final class PaymentMethodsViewController: UIViewController {
 // MARK: - Collection View Implementation
 
 extension PaymentMethodsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return methods.count
     }
@@ -74,13 +73,13 @@ extension PaymentMethodsViewController: UICollectionViewDataSource, UICollection
         cell.configureWith(image: dataManager.getPaymentMethodsImages(for: indexPath, methods: methods), text: methods[indexPath.row].name)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let method: Method = methods[indexPath.row]
         navigateToInstallmentWithMethod(method)
     }
-    
+
     private func createLayout() -> UICollectionViewCompositionalLayout {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
