@@ -1,0 +1,20 @@
+{
+    "request": "payment_methods",
+    "methods": [
+      {
+        "id": 0,
+        "name": "VISA",
+        "icon": "https://cdn2.iconfinder.com/data/icons/shopping-online-e-commerce-store/512/visa-512.png"
+      },
+      {
+        "id": 1,
+        "name": "MASTERCARD",
+        "icon": "https://pngimg.com/uploads/mastercard/mastercard_PNG25.png"
+      },
+      {
+        "id": 2,
+        "name": "AMEX",
+        "icon": "https://icons-for-free.com/iconfiles/png/512/American+Express-1320568124833959641.png"
+      }
+    ]
+  }

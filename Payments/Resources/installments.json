@@ -1,0 +1,17 @@
+{
+    "request": "installments",
+    "installments": [
+      {
+        "id": 0,
+        "name": "1 cuota"
+      },
+      {
+        "id": 1,
+        "name": "3 cuotas"
+      },
+      {
+        "id": 2,
+        "name": "6 cuotas"
+      }
+    ]
+  }
