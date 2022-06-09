@@ -20,11 +20,13 @@ final class InstallmentsViewController: UIViewController {
 
     // MARK: - Variables
 
+    private let calculationsViewModel: CalculationsViewModel
     private let dataManager: DataManager
     private var installments: [Installment] = []
     private var operation: Operation
 
-    init(dataManager: DataManager, operation: Operation) {
+    init(calculationsViewModel: CalculationsViewModel, dataManager: DataManager, operation: Operation) {
+        self.calculationsViewModel = calculationsViewModel
         self.dataManager = dataManager
         self.operation = operation
         super.init(nibName: nil, bundle: nil)
@@ -38,7 +40,9 @@ final class InstallmentsViewController: UIViewController {
         super.viewDidLoad()
         title = "Financiación"
         fetchDataForInstallmentsInfo()
-        NotificationCenter.default.addObserver(self, selector: #selector(dismissControllers), name: .dismissControllers, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissControllers),
+                                               name: .dismissControllers,
+                                               object: nil)
     }
 
     private func fetchDataForInstallmentsInfo() {
@@ -46,32 +50,15 @@ final class InstallmentsViewController: UIViewController {
         tableView.reloadData()
     }
 
-    private func getValueForFee(indexPath: IndexPath) -> String {
-        let amountForOneFee = operation.amountToTransfer
-        let amountFotThreeFees = (operation.amountToTransfer / 3) * 1.15
-        let amountForSixFees = (operation.amountToTransfer / 6) * 1.3
-        if installments[indexPath.row].id == 0 {
-            return formatter.string(from: NSNumber(value: amountForOneFee)) ?? ""
-        } else if installments[indexPath.row].id == 1 {
-            return formatter.string(from: NSNumber(value: amountFotThreeFees)) ?? ""
-        } else if installments[indexPath.row].id == 2 {
-            return formatter.string(from: NSNumber(value: amountForSixFees)) ?? ""
-        }
-        return "0.00"
-    }
-    
-    private func getFinalAmountWithInterestForFee(indexPath: IndexPath) -> String {
-        let amountForOneFee = operation.amountToTransfer
-        let finalAmountWithInterestForThreeFees = amountForOneFee * 1.15
-        let finalAmountWithInterestForSixFees = amountForOneFee * 1.3
-        if installments[indexPath.row].id == 0 {
-            return "$ \(formatter.string(from: NSNumber(value: amountForOneFee)) ?? "")"
-        } else if installments[indexPath.row].id == 1 {
-            return "$ \(formatter.string(from: NSNumber(value: finalAmountWithInterestForThreeFees)) ?? "")"
-        } else if installments[indexPath.row].id == 2 {
-            return "$ \(formatter.string(from: NSNumber(value: finalAmountWithInterestForSixFees)) ?? "")"
-        }
-        return "0.00"
+    private func navigateToConfirmationWithMethod(finalAmount: Double, installment: Installment) {
+        let operationBuilder = OperationBuilder()
+        operationBuilder.amountToTransfer = finalAmount
+        operationBuilder.operationDescription = operation.operationDescription
+        operationBuilder.paymentMethods = operation.paymentMethods
+        operationBuilder.installments = [installment]
+        let operation = operationBuilder.buidOperation()
+        let confirmationVC = ConfirmationViewController(operation: operation)
+        present(confirmationVC, animated: true)
     }
 
     @objc private func dismissControllers() {
@@ -88,28 +75,19 @@ extension InstallmentsViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: InstallmentCell.identifier, for: indexPath) as! InstallmentCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: InstallmentCell.identifier,
+                                                 for: indexPath) as! InstallmentCell
         cell.feeLabel.text = "\(installments[indexPath.row].name) de $"
-        cell.feeAmountLabel.text = getValueForFee(indexPath: indexPath)
-        cell.totalAmountLabel.text = getFinalAmountWithInterestForFee(indexPath: indexPath)
+        cell.feeAmountLabel.text = calculationsViewModel.calculateValueForIndividualFee(operation, installments, indexPath)
+        cell.totalAmountLabel.text = calculationsViewModel.calculateFinalValueForFee(operation, installments, indexPath)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let installment: Installment = installments[indexPath.row]
-        let finalAmount: Double = getFinalAmountWithInterestForFee(indexPath: indexPath).formatAsDouble
-        navigateToConfirmationWithMethod(finalAmount: finalAmount, installment: installment)
-    }
-
-    private func navigateToConfirmationWithMethod(finalAmount: Double, installment: Installment) {
-        let operationBuilder = OperationBuilder()
-        operationBuilder.amountToTransfer = finalAmount
-        operationBuilder.operationDescription = operation.operationDescription
-        operationBuilder.paymentMethods = operation.paymentMethods
-        operationBuilder.installments = [installment]
-        guard let operation = operationBuilder.buidOperation() else { return }
-        let confirmationVC = ConfirmationViewController(operation: operation)
-        present(confirmationVC, animated: true)
+        let finalAmount: String = calculationsViewModel.calculateFinalValueForFee(operation, installments, indexPath)
+        let finalAmountAsDouble: Double = finalAmount.formatAsDouble
+        navigateToConfirmationWithMethod(finalAmount: finalAmountAsDouble, installment: installment)
     }
 }

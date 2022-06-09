@@ -54,8 +54,10 @@ final class PaymentMethodsViewController: UIViewController {
         operationBuilder.operationDescription = operation.operationDescription
         operationBuilder.paymentMethods = [method]
         operationBuilder.installments = []
-        guard let operation = operationBuilder.buidOperation() else { return }
-        let installmentsVC = InstallmentsViewController(dataManager: DataManager(), operation: operation)
+        let operation = operationBuilder.buidOperation()
+        let installmentsVC = InstallmentsViewController(calculationsViewModel: CalculationsViewModel(),
+                                                        dataManager: DataManager(),
+                                                        operation: operation)
         navigationController?.pushViewController(installmentsVC, animated: true)
     }
 }
@@ -69,8 +71,11 @@ extension PaymentMethodsViewController: UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MethodCell.identifier, for: indexPath) as! MethodCell
-        cell.configureWith(image: dataManager.getPaymentMethodsImages(for: indexPath, methods: methods), text: methods[indexPath.row].name)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MethodCell.identifier,
+                                                      for: indexPath) as! MethodCell
+        cell.configureWith(image: dataManager.getPaymentMethodsImages(for: indexPath,
+                                                                      methods: methods),
+                                                                      text: methods[indexPath.row].name)
         return cell
     }
 
@@ -81,7 +86,8 @@ extension PaymentMethodsViewController: UICollectionViewDataSource, UICollection
     }
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                                             heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(2/8)), subitem: item, count: 2)
         let section = NSCollectionLayoutSection(group: group)

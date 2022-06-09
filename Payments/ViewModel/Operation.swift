@@ -9,22 +9,19 @@ import Foundation
 
 class OperationBuilder {
     
-    var amountToTransfer: Double?
+    var amountToTransfer: Double = 0.0
     var operationDescription: String?
-    var paymentMethods: [Method]?
-    var installments: [Installment]?
+    var paymentMethods: [Method] = []
+    var installments: [Installment] = []
     
-    func buidOperation() -> Operation? {
-        if let amountToTransfer = amountToTransfer, let operationDescription = operationDescription, let paymentMethods = paymentMethods, let installments = installments {
-            return Operation(amountToTransfer: amountToTransfer, operationDescription: operationDescription, paymentMethods: paymentMethods, installments: installments)
-        }
-        return nil
+    func buidOperation() -> Operation {
+        return Operation(amountToTransfer: amountToTransfer, operationDescription: operationDescription, paymentMethods: paymentMethods, installments: installments)
     }
 }
 
 class Operation {
     
-    var amountToTransfer: Double = 0.0
+    var amountToTransfer: Double
     let operationDescription: String?
     let paymentMethods: [Method]
     let installments: [Installment]

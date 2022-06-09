@@ -52,7 +52,9 @@ final class ConfirmationViewController: UIViewController {
     }
 
     private func showAlert() {
-        let alert = UIAlertController(title: "¡Operación exitosa!", message: "Verás reflejado el resultado en los próximos minutos.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "¡Operación exitosa!",
+                                      message: "Verás reflejado el resultado en los próximos minutos.",
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Aceptar", style: .cancel, handler: { [weak self] _ in
             guard let self = self else { return }
             NotificationCenter.default.post(name: .updateOperationValues, object: nil)
